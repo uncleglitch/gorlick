@@ -33,10 +33,11 @@ func (c *Container) String() string {
 }
 
 // MakeContainer is the factory of Containers.
-func MakeContainer(name string, containerType ContainerType, products []Product) Container {
-	var c Container
-	c.Name = name
-	c.Type = containerType
-	c.Products = products
+func MakeContainer(name string, containerType ContainerType, products []Product) *Container {
+	c := &Container{
+		Name:     name,
+		Type:     containerType,
+		Products: products,
+	}
 	return c
 }

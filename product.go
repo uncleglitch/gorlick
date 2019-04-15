@@ -39,11 +39,12 @@ func (p *Product) String() string {
 }
 
 // MakeProduct is a Product's factory.
-func MakeProduct(ID int, Name string, Unit ProductUnit, Description string) Product {
-	var p Product
-	p.ID = ID
-	p.Name = Name
-	p.Unit = Unit
-	p.Description = Description
+func MakeProduct(ID int, Name string, Unit ProductUnit, Description string) *Product {
+	p := &Product{
+		ID:          ID,
+		Name:        Name,
+		Unit:        Unit,
+		Description: Description,
+	}
 	return p
 }
