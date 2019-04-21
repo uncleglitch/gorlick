@@ -30,6 +30,10 @@ func (u ItemUnit) String() string {
 
 // --- STATE ---
 
+type void struct{}
+
+var emptyMember void
+
 // ItemState is a state of an item.
 type ItemState int
 
@@ -40,7 +44,7 @@ const (
 
 // AddState adds a state to properties of the item.
 func (item *Item) AddState(state ItemState) {
-	item.States = append(item.States, state)
+	item.States[state] = emptyMember
 }
 
 // --- ITEM ---
@@ -51,11 +55,11 @@ type Item struct {
 	Description string
 	Name        string
 	Unit        ItemUnit
-	States      []ItemState
+	States      map[ItemState]void
 }
 
 func (item *Item) String() string {
-	return fmt.Sprintf("Item [%d, %s, %s, %s, %v]", item.ID, item.Name, item.Unit, item.Description, item.States)
+	return fmt.Sprintf("Item [%d, %s, %s, %s]", item.ID, item.Name, item.Unit, item.Description)
 }
 
 // MakeItem is a Items's factory.
@@ -66,5 +70,6 @@ func MakeItem(ID int, Name string, Unit ItemUnit, Description string) *Item {
 		Unit:        Unit,
 		Description: Description,
 	}
+	item.States = make(map[ItemState]void)
 	return item
 }

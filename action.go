@@ -6,21 +6,21 @@ import (
 
 // Action is a type representing the cook actions.
 type Action struct {
-	Name        string
-	Container1  *Container
-	Container2  *Container
-	Container3  *Container
-	Description string
-	Duration    time.Duration
+	Name           string
+	ContainerMain  *Container
+	ContainerHelp  *Container
+	ContainerTrash *Container
+	Description    string
+	Duration       time.Duration
 }
 
 // MakeAction makes a new action object.
 func MakeAction(name string, container *Container, description string, duration time.Duration) *Action {
 	a := &Action{
-		Name:        name,
-		Container1:  container,
-		Description: description,
-		Duration:    duration,
+		Name:          name,
+		ContainerMain: container,
+		Description:   description,
+		Duration:      duration,
 	}
 	return a
 }
@@ -52,19 +52,22 @@ func MakeActionsBase() *map[ActionType]ActionFunction {
 
 	actionsBase := map[ActionType]ActionFunction{
 		MOVE: Move,
-		//FRY:  Fry,
+		FRY:  Fry,
 	}
 	return &actionsBase
 }
 
-// Move action moves items from container1 to container2.
+// Move action moves items from containerMain to containerHelp.
 func Move(a *Action) {
-	for _, item := range a.Container1.Items {
-		a.Container2.Items = append(a.Container2.Items, item)
+	for _, item := range a.ContainerMain.Items {
+		a.ContainerHelp.Items = append(a.ContainerHelp.Items, item)
 	}
-	a.Container1.Items = []Item{}
+	a.ContainerMain.Items = []Item{}
 }
 
-// func Fry(a *Action) {
-
-// }
+// Fry action fries all items of main container.
+func Fry(a *Action) {
+	for _, item := range a.ContainerMain.Items {
+		item.AddState(FRIED)
+	}
+}

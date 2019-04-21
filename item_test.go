@@ -19,7 +19,7 @@ func TestMakeItem(t *testing.T) {
 
 func TestString(t *testing.T) {
 	item := g.MakeItem(2, "Egg", g.THING, "A simple egg")
-	if item.String() != "Item [2, Egg, thing, A simple egg, []]" {
+	if item.String() != "Item [2, Egg, thing, A simple egg]" {
 		t.Fail()
 	}
 }
@@ -28,13 +28,8 @@ func TestAddState(t *testing.T) {
 	item := g.MakeItem(2, "Egg", g.THING, "A simple egg")
 	wantState := g.FRIED
 	item.AddState(wantState)
-	contains := false
-	for _, state := range item.States {
-		if state == wantState {
-			contains = true
-		}
-	}
-	if !contains {
+	_, exists := item.States[wantState]
+	if !exists {
 		t.Fail()
 	}
 }
