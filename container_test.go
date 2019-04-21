@@ -18,6 +18,6 @@ func TestMakeContainer(t *testing.T) {
 
 	c := g.MakeContainer(name, containerType, items)
 	if c.Name != name || c.Type != containerType || !reflect.DeepEqual(c.Items, items) {
-		t.Fail()
+		t.Error("MakeContainer hasn't make right container")
 	}
 }

@@ -18,7 +18,7 @@ func TestMakeAction(t *testing.T) {
 	duration := time.Duration(10)
 	a := g.MakeAction(name, c, description, duration)
 	if a.Name != name || a.ContainerMain != c || a.Description != description || a.Duration != duration {
-		t.Fail()
+		t.Error("MakeAction hasn't make right action.")
 	}
 }
 
@@ -34,9 +34,25 @@ func TestMove(t *testing.T) {
 
 	g.Move(action)
 
-	if !reflect.DeepEqual(action.ContainerHelp.Items, items1) || len(action.ContainerMain.Items) != 0 {
-		t.Fail()
+	ok := false
+	for _, sourceItem := range items1 {
+		ok = false
+		for _, targetItem := range action.ContainerHelp.Items {
+			if reflect.DeepEqual(sourceItem, targetItem) {
+				ok = true
+				break
+			}
+		}
+		if !ok {
+			t.Error("The target container doesn't collect source's items.")
+			break
+		}
 	}
+
+	if len(action.ContainerMain.Items) != 0 {
+		t.Error("The source container hasn't clear after moving.")
+	}
+
 }
 
 func TestFry(t *testing.T) {
@@ -51,7 +67,7 @@ func TestFry(t *testing.T) {
 	for _, item := range action.ContainerMain.Items {
 		_, exists := item.States[g.FRIED]
 		if !exists {
-			t.Fail()
+			t.Error("An item hasn't FRIED state")
 		}
 	}
 }

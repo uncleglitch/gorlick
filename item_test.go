@@ -13,14 +13,14 @@ func TestMakeItem(t *testing.T) {
 	description := "Test description"
 	item := g.MakeItem(id, name, unit, description)
 	if item.ID != id || item.Name != name || item.Unit != unit || item.Description != description {
-		t.Fail()
+		t.Error("MakeItem hasn't make right item.")
 	}
 }
 
 func TestString(t *testing.T) {
 	item := g.MakeItem(2, "Egg", g.THING, "A simple egg")
 	if item.String() != "Item [2, Egg, thing, A simple egg]" {
-		t.Fail()
+		t.Error("String method for the item returns string with wrong format.")
 	}
 }
 
@@ -30,6 +30,6 @@ func TestAddState(t *testing.T) {
 	item.AddState(wantState)
 	_, exists := item.States[wantState]
 	if !exists {
-		t.Fail()
+		t.Error("New state hasn't added.")
 	}
 }
