@@ -21,23 +21,23 @@ func (c ContainerType) String() string {
 	return containers[c-1]
 }
 
-// Container is a general collection of products.
+// Container is a general collection of items.
 type Container struct {
-	Name     string
-	Products []Product
-	Type     ContainerType
+	Name  string
+	Items []Item
+	Type  ContainerType
 }
 
 func (c *Container) String() string {
-	return fmt.Sprintf("Container %s [%v]", c.Type, c.Products)
+	return fmt.Sprintf("Container %s [%v]", c.Type, c.Items)
 }
 
 // MakeContainer is the factory of Containers.
-func MakeContainer(name string, containerType ContainerType, products []Product) *Container {
+func MakeContainer(name string, containerType ContainerType, items []Item) *Container {
 	c := &Container{
-		Name:     name,
-		Type:     containerType,
-		Products: products,
+		Name:  name,
+		Type:  containerType,
+		Items: items,
 	}
 	return c
 }

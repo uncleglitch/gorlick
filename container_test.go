@@ -10,14 +10,14 @@ import (
 func TestMakeContainer(t *testing.T) {
 	name := "container1"
 	containerType := g.STANDARD
-	p1 := g.MakeProduct(0, "Product0", g.THING, "Description of Product0")
-	p2 := g.MakeProduct(1, "Product1", g.LITER, "Description of Product1")
-	products := make([]g.Product, 2)
-	products = append(products, *p1)
-	products = append(products, *p2)
+	p1 := g.MakeItem(0, "Item0", g.THING, "Description of Item0")
+	p2 := g.MakeItem(1, "Item1", g.LITER, "Description of Item1")
+	items := make([]g.Item, 2)
+	items = append(items, *p1)
+	items = append(items, *p2)
 
-	c := g.MakeContainer(name, containerType, products)
-	if c.Name != name || c.Type != containerType || !reflect.DeepEqual(c.Products, products) {
+	c := g.MakeContainer(name, containerType, items)
+	if c.Name != name || c.Type != containerType || !reflect.DeepEqual(c.Items, items) {
 		t.Fail()
 	}
 }
