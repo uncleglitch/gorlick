@@ -51,7 +51,6 @@ func (item *Item) AddState(state ItemState) {
 
 // Item is a model of all products.
 type Item struct {
-	ID          int
 	Description string
 	Name        string
 	Unit        ItemUnit
@@ -59,17 +58,32 @@ type Item struct {
 }
 
 func (item *Item) String() string {
-	return fmt.Sprintf("Item [%d, %s, %s, %s]", item.ID, item.Name, item.Unit, item.Description)
+	return fmt.Sprintf("Item [%s, %s]", item.Name, item.Unit)
 }
 
 // MakeItem is a Items's factory.
-func MakeItem(ID int, Name string, Unit ItemUnit, Description string) *Item {
+func MakeItem(Name string, Unit ItemUnit) *Item {
 	item := &Item{
-		ID:          ID,
 		Name:        Name,
 		Unit:        Unit,
-		Description: Description,
+		Description: "",
 	}
 	item.States = make(map[ItemState]void)
 	return item
+}
+
+// --- ITEM'S BASE ---
+
+// ItemsBase is a dictionary mapping item's name to an item.
+var ItemsBase map[string]*Item
+
+// AddItemToBase adds an item to the item's base.
+func AddItemToBase(i *Item) {
+	ItemsBase[i.Name] = i
+}
+
+// InitItemsBase initializes and loads the ItemsBase dictionary.
+func InitItemsBase() {
+	ItemsBase = make(map[string]*Item)
+	AddItemToBase(MakeItem("Nil", THING))
 }

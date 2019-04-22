@@ -15,12 +15,10 @@ type Action struct {
 }
 
 // MakeAction makes a new action object.
-func MakeAction(name string, container *Container, description string, duration time.Duration) *Action {
+func MakeAction(name string, container *Container) *Action {
 	a := &Action{
 		Name:          name,
 		ContainerMain: container,
-		Description:   description,
-		Duration:      duration,
 	}
 	return a
 }
@@ -62,12 +60,12 @@ func Move(a *Action) {
 	for _, item := range a.ContainerMain.Items {
 		a.ContainerHelp.Items = append(a.ContainerHelp.Items, item)
 	}
-	a.ContainerMain.Items = []*Item{}
+	a.ContainerMain.Items = []ItemInContainer{}
 }
 
 // Fry action fries all items of main container.
 func Fry(a *Action) {
-	for _, item := range a.ContainerMain.Items {
-		item.AddState(FRIED)
+	for _, itemInContainer := range a.ContainerMain.Items {
+		itemInContainer.Item.AddState(FRIED)
 	}
 }

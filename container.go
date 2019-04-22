@@ -21,10 +21,16 @@ func (c ContainerType) String() string {
 	return containers[c-1]
 }
 
+// ItemInContainer is an item with its count.
+type ItemInContainer struct {
+	Item  *Item
+	Count float32
+}
+
 // Container is a general collection of items.
 type Container struct {
 	Name  string
-	Items []*Item
+	Items []ItemInContainer
 	Type  ContainerType
 }
 
@@ -33,7 +39,7 @@ func (c *Container) String() string {
 }
 
 // MakeContainer is the factory of Containers.
-func MakeContainer(name string, containerType ContainerType, items []*Item) *Container {
+func MakeContainer(name string, containerType ContainerType, items []ItemInContainer) *Container {
 	c := &Container{
 		Name:  name,
 		Type:  containerType,
@@ -42,7 +48,7 @@ func MakeContainer(name string, containerType ContainerType, items []*Item) *Con
 	return c
 }
 
-// Add appends an item to the container.
-func (c *Container) Add(i *Item) {
-	c.Items = append(c.Items, i)
+// Add appends an item with its count to the container.
+func (c *Container) Add(i *Item, count float32) {
+	c.Items = append(c.Items, ItemInContainer{Item: i, Count: count})
 }
