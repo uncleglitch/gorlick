@@ -10,8 +10,8 @@ import (
 
 func TestMakeAction(t *testing.T) {
 	item1 := g.MakeItem(0, "Item0", g.THING, "Description of Item0")
-	items := make([]g.Item, 2)
-	items = append(items, *item1)
+	items := make([]*g.Item, 2)
+	items = append(items, item1)
 	c := g.MakeContainer("Container1", g.STANDARD, items)
 	name := "Action1"
 	description := "Description of action1"
@@ -24,10 +24,10 @@ func TestMakeAction(t *testing.T) {
 
 func TestMove(t *testing.T) {
 	item1 := g.MakeItem(0, "Item0", g.THING, "Description of Item0")
-	items1 := make([]g.Item, 0)
-	items1 = append(items1, *item1)
+	items1 := make([]*g.Item, 0)
+	items1 = append(items1, item1)
 	c1 := g.MakeContainer("c1", g.STANDARD, items1)
-	items2 := make([]g.Item, 0)
+	items2 := make([]*g.Item, 0)
 	c2 := g.MakeContainer("c2", g.STANDARD, items2)
 	action := g.MakeAction("Move", c1, "Move action", 3*time.Second)
 	action.ContainerHelp = c2
@@ -57,8 +57,8 @@ func TestMove(t *testing.T) {
 
 func TestFry(t *testing.T) {
 	item1 := g.MakeItem(0, "Item0", g.THING, "Description of Item0")
-	items1 := make([]g.Item, 0)
-	items1 = append(items1, *item1)
+	items1 := make([]*g.Item, 0)
+	items1 = append(items1, item1)
 	c1 := g.MakeContainer("c1", g.STANDARD, items1)
 	action := g.MakeAction("Fry", c1, "Fry action", 3*time.Minute)
 

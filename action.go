@@ -62,7 +62,7 @@ func Move(a *Action) {
 	for _, item := range a.ContainerMain.Items {
 		a.ContainerHelp.Items = append(a.ContainerHelp.Items, item)
 	}
-	a.ContainerMain.Items = []Item{}
+	a.ContainerMain.Items = []*Item{}
 }
 
 // Fry action fries all items of main container.
