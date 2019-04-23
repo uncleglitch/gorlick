@@ -56,4 +56,4 @@ func (s *Scenario) CopyContainers() map[string]Container {
 		cs[k] = *v
 	}
 	return cs
-} 
+}

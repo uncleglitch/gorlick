@@ -53,6 +53,7 @@ func (a ActionType) String() string {
 // ActionFunction is a type representing an implementation of the actions.
 type ActionFunction func(a *Action)
 
+// ActionsBase is a dictionary of the ActionFunctions.
 var ActionsBase map[ActionType]ActionFunction
 
 // InitActionsBase initializes dictionary maping ActionType to ActionFunction.

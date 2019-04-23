@@ -7,7 +7,7 @@ type ContainerType int
 
 const (
 	// STANDARD is the most general container.
-	STANDARD ContainerType = 1 + iota
+	STANDARD ContainerType = iota
 	// PLATE represents the all plates.
 	PLATE
 )
@@ -18,7 +18,7 @@ var containers = [...]string{
 }
 
 func (c ContainerType) String() string {
-	return containers[c-1]
+	return containers[c]
 }
 
 // ItemInContainer is an item with its count.

@@ -11,7 +11,7 @@ type ItemUnit int
 
 const (
 	// THING is a general unit for the items.
-	THING ItemUnit = 1 + iota
+	THING ItemUnit = iota
 	// LITER is a general unit for a liquid items.
 	LITER
 	// GRAMM is a general unit for a solid items.
@@ -25,7 +25,7 @@ var units = [...]string{
 }
 
 func (u ItemUnit) String() string {
-	return units[u-1]
+	return units[u]
 }
 
 // --- STATE ---
