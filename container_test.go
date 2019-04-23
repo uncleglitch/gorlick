@@ -12,7 +12,7 @@ func TestMakeContainer(t *testing.T) {
 	containerType := g.STANDARD
 	p1 := g.MakeItem("Item0", g.THING)
 	p2 := g.MakeItem("Item1", g.LITER)
-	items := make([]g.ItemInContainer, 2)
+	items := make([]g.ItemInContainer, 0)
 	items = append(items, g.ItemInContainer{Item: p1, Count: 1})
 	items = append(items, g.ItemInContainer{Item: p2, Count: 1})
 

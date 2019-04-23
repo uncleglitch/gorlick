@@ -6,7 +6,7 @@ import (
 
 // Action is a type representing the cook actions.
 type Action struct {
-	Name           string
+	Type           ActionType
 	ContainerMain  *Container
 	ContainerHelp  *Container
 	ContainerTrash *Container
@@ -15,11 +15,13 @@ type Action struct {
 }
 
 // MakeAction makes a new action object.
-func MakeAction(name string, container *Container) *Action {
+func MakeAction(actionType ActionType, container *Container) *Action {
 	a := &Action{
-		Name:          name,
+		Type:          actionType,
 		ContainerMain: container,
 	}
+	a.ContainerHelp = new(Container)
+	a.ContainerTrash = new(Container)
 	return a
 }
 
@@ -27,13 +29,19 @@ func MakeAction(name string, container *Container) *Action {
 type ActionType int
 
 const (
+	// INIT is a special action representing start of scenario.
+	INIT ActionType = iota
+	// END is a special action representing end of scenario.
+	END
 	// MOVE is a moving action.
-	MOVE ActionType = 1 + iota
+	MOVE
 	// FRY is a frying action.
 	FRY
 )
 
 var actions = [...]string{
+	"init",
+	"end",
 	"move",
 	"fry",
 }
@@ -45,14 +53,21 @@ func (a ActionType) String() string {
 // ActionFunction is a type representing an implementation of the actions.
 type ActionFunction func(a *Action)
 
-// MakeActionsBase makes dictionary maping ActionType to ActionFunction.
-func MakeActionsBase() *map[ActionType]ActionFunction {
+var ActionsBase map[ActionType]ActionFunction
 
-	actionsBase := map[ActionType]ActionFunction{
+// InitActionsBase initializes dictionary maping ActionType to ActionFunction.
+func InitActionsBase() {
+	ActionsBase = map[ActionType]ActionFunction{
+		INIT: Void,
+		END:  Void,
 		MOVE: Move,
 		FRY:  Fry,
 	}
-	return &actionsBase
+}
+
+// RunAction runs the implementation function of the action.
+func (a *Action) RunAction() {
+	ActionsBase[a.Type](a)
 }
 
 // Move action moves items from containerMain to containerHelp.
@@ -68,4 +83,9 @@ func Fry(a *Action) {
 	for _, itemInContainer := range a.ContainerMain.Items {
 		itemInContainer.Item.AddState(FRIED)
 	}
+}
+
+// Void is an empty function for the empty actions.
+func Void(a *Action) {
+
 }

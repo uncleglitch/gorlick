@@ -22,7 +22,7 @@ func TestMakeScenario(t *testing.T) {
 	items = append(items, g.ItemInContainer{Item: anItem, Count: 1})
 	c := g.MakeContainer("Test", g.STANDARD, items)
 	s.AddContainer(c)
-	s.AddAction(g.MakeAction("Test", c))
+	s.AddAction(g.MakeAction(g.INIT, c))
 }
 
 func TestAddContainer(t *testing.T) {
@@ -78,7 +78,7 @@ func TestAddItems(t *testing.T) {
 func TestAddAction(t *testing.T) {
 	s := g.MakeScenario(0, "Test")
 	actionsCountBefore := len(s.Actions)
-	s.AddAction(g.MakeAction("Test", g.MakeContainer("Test", g.STANDARD, make([]g.ItemInContainer, 0))))
+	s.AddAction(g.MakeAction(g.INIT, g.MakeContainer("Test", g.STANDARD, make([]g.ItemInContainer, 0))))
 	actionsCountAfter := len(s.Actions)
 
 	if actionsCountAfter != actionsCountBefore+1 {

@@ -12,9 +12,8 @@ func TestMakeAction(t *testing.T) {
 	items := make([]g.ItemInContainer, 0)
 	items = append(items, g.ItemInContainer{Item: item1, Count: 1})
 	c := g.MakeContainer("Container1", g.STANDARD, items)
-	name := "Action1"
-	a := g.MakeAction(name, c)
-	if a.Name != name || a.ContainerMain != c {
+	a := g.MakeAction(g.INIT, c)
+	if a.ContainerMain != c {
 		t.Error("MakeAction hasn't make right action.")
 	}
 }
@@ -26,7 +25,7 @@ func TestMove(t *testing.T) {
 	c1 := g.MakeContainer("c1", g.STANDARD, items1)
 	items2 := make([]g.ItemInContainer, 0)
 	c2 := g.MakeContainer("c2", g.STANDARD, items2)
-	action := g.MakeAction("Move", c1)
+	action := g.MakeAction(g.MOVE, c1)
 	action.ContainerHelp = c2
 
 	g.Move(action)
@@ -57,7 +56,7 @@ func TestFry(t *testing.T) {
 	items1 := make([]g.ItemInContainer, 0)
 	items1 = append(items1, g.ItemInContainer{Item: item1, Count: 1})
 	c1 := g.MakeContainer("c1", g.STANDARD, items1)
-	action := g.MakeAction("Fry", c1)
+	action := g.MakeAction(g.FRY, c1)
 
 	g.Fry(action)
 

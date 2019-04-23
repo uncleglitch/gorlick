@@ -48,3 +48,12 @@ func (s *Scenario) AddItems(is []*Item) {
 func (s *Scenario) AddAction(a *Action) {
 	s.Actions = append(s.Actions, a)
 }
+
+// CopyContainers creates a copy of all containers of the scenario.
+func (s *Scenario) CopyContainers() map[string]Container {
+	cs := make(map[string]Container)
+	for k, v := range s.Containers {
+		cs[k] = *v
+	}
+	return cs
+} 
