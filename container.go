@@ -52,3 +52,18 @@ func MakeContainer(name string, containerType ContainerType, items []ItemInConta
 func (c *Container) Add(i *Item, count float32) {
 	c.Items = append(c.Items, ItemInContainer{Item: i, Count: count})
 }
+
+// Copy copies the container.
+func (c *Container) Copy() Container {
+	copy := Container{
+		Name: c.Name,
+		Type: c.Type,
+	}
+
+	for _, itemInContainer := range c.Items {
+		copiedItem := itemInContainer.Item.Copy()
+		copy.Add(&copiedItem, itemInContainer.Count)
+	}
+
+	return copy
+}

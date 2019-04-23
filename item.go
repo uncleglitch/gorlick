@@ -39,12 +39,29 @@ type ItemState int
 
 const (
 	// FRIED is a state after frying action.
-	FRIED ItemState = 1 + iota
+	FRIED ItemState = iota
 )
+
+var states = [...]string{
+	"fried",
+}
+
+func (s ItemState) String() string {
+	return states[s]
+}
 
 // AddState adds a state to properties of the item.
 func (item *Item) AddState(state ItemState) {
 	item.States[state] = emptyMember
+}
+
+// GetStates returns all states of the item.
+func (item *Item) GetStates() []ItemState {
+	states := make([]ItemState, 0)
+	for state := range item.States {
+		states = append(states, state)
+	}
+	return states
 }
 
 // --- ITEM ---
@@ -86,4 +103,18 @@ func AddItemToBase(i *Item) {
 func InitItemsBase() {
 	ItemsBase = make(map[string]*Item)
 	AddItemToBase(MakeItem("Nil", THING))
+}
+
+// Copy copies the item.
+func (item *Item) Copy() Item {
+	copy := Item{
+		Description: item.Description,
+		Name:        item.Name,
+		Unit:        item.Unit,
+		States:      make(map[ItemState]void),
+	}
+	for state := range item.States {
+		copy.AddState(state)
+	}
+	return copy
 }

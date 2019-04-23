@@ -52,8 +52,8 @@ func (s *Scenario) AddAction(a *Action) {
 // CopyContainers creates a copy of all containers of the scenario.
 func (s *Scenario) CopyContainers() map[string]Container {
 	cs := make(map[string]Container)
-	for k, v := range s.Containers {
-		cs[k] = *v
+	for name, container := range s.Containers {
+		cs[name] = container.Copy()
 	}
 	return cs
 }

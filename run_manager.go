@@ -54,7 +54,7 @@ func (rm *RunManager) String() string {
 		for name, cont := range dump.Containers {
 			s = s + fmt.Sprintf("\t[%s]:\n", name)
 			for _, item := range cont.Items {
-				s = s + fmt.Sprintf("\t\t%s (%.1f %s)\n", item.Item.Name, item.Count, item.Item.Unit)
+				s = s + fmt.Sprintf("\t\t%s (%.1f %s {%v})\n", item.Item.Name, item.Count, item.Item.Unit, item.Item.GetStates())
 			}
 		}
 	}

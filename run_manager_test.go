@@ -30,6 +30,9 @@ func TestRun(t *testing.T) {
 	a1.ContainerHelp = c2
 	s.AddAction(a1)
 
+	a2 := g.MakeAction(g.FRY, c2)
+	s.AddAction(a2)
+
 	_ = g.Run(s)
 	//fmt.Println(m)
 }
